@@ -17,15 +17,17 @@ Connect-AzAccount -Identity
 
 foreach($resourceGroupName in $resourceGroupList){
 
-    $bicepFilePath = "D:\home\site\wwwroot\YourFunctionName\$($resourceGroupName).bicep"
+    $bicepFilePath = "$($resourceGroupName).bicep"
+    $bicepFileDir = "D:\home\site\wwwroot\saveAndDeleteRG\"
+
     #$bicepFilePath = ".\backup\$($resourceGroupName).bicep"
 
     # Get the resource group
     $resourceGroup = Get-AzResourceGroup -Name $resourceGroupName
 
     # Convert the resource group to Bicep and save it to a file
-    $resourceGroup | ConvertTo-Bicep | Set-Content -Path $bicepFilePath
-
+    $resourceGroup | ConvertTo-Bicep -Path $bicepFilePath -OutputDirectory $bicepFileDir
+    
     # Clone the Git repository
     #git clone $gitRepoUrl
 
@@ -38,7 +40,7 @@ foreach($resourceGroupName in $resourceGroupList){
     #Set-Location -Path "LocalGitRepository"
 
     # Add the Bicep file to the Git staging area
-    git add .
+    #git add .
 
 }
 
