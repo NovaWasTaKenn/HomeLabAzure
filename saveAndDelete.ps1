@@ -1,3 +1,8 @@
+
+
+Remove-Module AzureRM.Profile -Force -ErrorAction SilentlyContinue  # AzureRM causes a conflict with Az modules
+Enable-AzureRmAlias -Scope CurrentUser -ErrorAction SilentlyContinue  # solves type implementation exception
+
 # Define the resource group and Bicep file paths
 $resourceGroupList = @("RG1")
 $gitRepoUrl = "https://github.com/NovaWasTaKenn/HomeLabAzure.git"
@@ -6,7 +11,6 @@ foreach($resourceGroupName in $resourceGroupList){
 
     #$bicepFilePath = "D:\home\site\wwwroot\YourFunctionName\ResourceGroup.bicep"
     $bicepFilePath = ".\backup\$($resourceGroupName).bicep"
-
 
     # Authenticate using Managed Identity (Assuming Managed Identity is enabled for the Function App)
     Connect-AzAccount -Identity
@@ -34,7 +38,7 @@ foreach($resourceGroupName in $resourceGroupList){
 }
 
 # Commit the changes
-git commit -m "Adding resource group Bicep file"
+#git commit -m "Adding resource group Bicep file"
 
 # Push the changes to the remote repository
-git push
+#git push
