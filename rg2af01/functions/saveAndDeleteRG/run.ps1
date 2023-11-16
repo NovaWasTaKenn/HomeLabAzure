@@ -1,10 +1,14 @@
 using namespace System.Net
 
-Import-Module Bicep
+#{
+#    "ResourceGroupListStr":["RG1"],
+#    "GitRepoUrl":"https://github.com/NovaWasTaKenn/HomeLabAzure.git"
+#}
 
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
+Import-Module Bicep
 
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
