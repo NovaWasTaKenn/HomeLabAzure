@@ -4,7 +4,7 @@ using namespace System.Net
 param($Request, $TriggerMetadata)
 
 # Define the resource group and Bicep file paths
-$resourceGroupList = $Request.Body.ResourceGroupListStr | Convert-FromJson
+$resourceGroupList = $Request.Body.ResourceGroupListStr | ConvertFrom-Json
 #$gitRepoUrl = "https://github.com/NovaWasTaKenn/HomeLabAzure.git"
 
 $gitRepoUrl = $Request.Body.GitRepoUrl
