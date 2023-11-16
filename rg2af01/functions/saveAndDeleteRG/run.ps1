@@ -1,5 +1,7 @@
 using namespace System.Net
 
+Import-Module Bicep
+
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
@@ -27,7 +29,7 @@ foreach($resourceGroupName in $resourceGroupList){
 
     # Convert the resource group to Bicep and save it to a file
     $resourceGroup | ConvertTo-Bicep -Path $bicepFilePath -OutputDirectory $bicepFileDir
-    
+
     # Clone the Git repository
     #git clone $gitRepoUrl
 
