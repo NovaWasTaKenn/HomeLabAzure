@@ -23,16 +23,12 @@ Connect-AzAccount -Identity
 
 foreach($resourceGroupName in $resourceGroupList){
 
-    $bicepFilePath = "$($resourceGroupName).bicep"
-    $bicepFileDir = "D:\home\site\wwwroot\saveAndDeleteRG\"
+    $armFilePath = "D:\home\site\wwwroot\saveAndDeleteRG\$($resourceGroupName).json"
 
-    #$bicepFilePath = ".\backup\$($resourceGroupName).bicep"
+    #$bicepFilePath = ".\backup\$($resourceGroupName).json"
 
     # Get the resource group
-    $resourceGroup = Get-AzResourceGroup -Name $resourceGroupName
-
-    # Convert the resource group to Bicep and save it to a file
-    $resourceGroup | ConvertTo-Bicep -Path $bicepFilePath -OutputDirectory $bicepFileDir
+    Export-AzResourceGroup -ResourceGroupName $resourceGroupName -Path $armFilePath
 
     # Clone the Git repository
     #git clone $gitRepoUrl
