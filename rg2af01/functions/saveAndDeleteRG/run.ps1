@@ -3,7 +3,10 @@ using namespace System.Net
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
-# Define the resource group and Bicep file paths
+
+Write-Host "RG list $($Request.Body.ResourceGroupListStr)"
+
+# Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr | ConvertFrom-Json
 #$gitRepoUrl = "https://github.com/NovaWasTaKenn/HomeLabAzure.git"
 
