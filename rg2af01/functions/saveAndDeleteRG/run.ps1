@@ -7,7 +7,7 @@ param($Request, $TriggerMetadata)
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
 # Define the resource group and Bicep file paths 
-$resourceGroupList = $Request.Body.ResourceGroupListStr | ConvertFrom-Json
+$resourceGroupList = $Request.Body.ResourceGroupListStr
 #$gitRepoUrl = "https://github.com/NovaWasTaKenn/HomeLabAzure.git"
 
 $gitRepoUrl = $Request.Body.GitRepoUrl
