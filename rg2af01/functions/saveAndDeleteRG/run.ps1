@@ -4,7 +4,7 @@ using namespace System.Net
 param($Request, $TriggerMetadata)
 
 
-Write-Host "RG list $($Request.Body.ResourceGroupListStr)"
+Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
 # Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr | ConvertFrom-Json
