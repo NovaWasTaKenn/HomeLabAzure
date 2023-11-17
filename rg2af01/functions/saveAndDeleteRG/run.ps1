@@ -18,6 +18,8 @@ $gitRepoUrl = $Request.Body.GitRepoUrl
 
 # Authenticate using Managed Identity (Assuming Managed Identity is enabled for the Function App)
 Connect-AzAccount -Identity
+git config user.name "NovaWasTakenn"
+git config user.email "quentin.le-nestour@outlook.com"
 
 
 foreach($resourceGroupName in $resourceGroupList){
@@ -52,6 +54,7 @@ git commit -m "Adding resource group arm file"
 # Push the changes to the remote repository
 git push
 
+#mawsFnPlaceholder198_f_v4_powershell_7.2_x86@10-30-10-114.(none)
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = [HttpStatusCode]::OK
