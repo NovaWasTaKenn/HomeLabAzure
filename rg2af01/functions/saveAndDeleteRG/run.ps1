@@ -25,6 +25,11 @@ foreach($resourceGroupName in $resourceGroupList){
     $armFilePath = "D:\home\site\wwwroot\saveAndDeleteRG\$($resourceGroupName).json"
     $repoPath = "D:\home\site\wwwroot\saveAndDeleteRG\repo"
 
+    if(Test-Path $repoPath){
+        Remove-Item $repoPath -Recurse
+    }
+
+
     #$bicepFilePath = ".\backup\$($resourceGroupName).json"
 
     # Get the resource group
@@ -34,14 +39,14 @@ foreach($resourceGroupName in $resourceGroupList){
     git clone -b main --single-branch $gitRepoUrl $repoPath
 
     # Move the Bicep file to the local repository
-    Move-Item $armFilePath -Destination $repoPath 
+    Move-Item $armFilePath -Destination $repoPath
 
     # Change to the Git repository directory
     Set-Location -Path $repoPath
 
     git config user.name "NovaWasTakenn"
     git config user.email "quentin.le-nestour@outlook.com"
-    
+
     # Add the arm file to the Git staging area
     git add .
 
