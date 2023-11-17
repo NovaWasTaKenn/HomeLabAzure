@@ -18,8 +18,6 @@ $gitRepoUrl = $Request.Body.GitRepoUrl
 
 # Authenticate using Managed Identity (Assuming Managed Identity is enabled for the Function App)
 Connect-AzAccount -Identity
-git config user.name "NovaWasTakenn"
-git config user.email "quentin.le-nestour@outlook.com"
 
 
 foreach($resourceGroupName in $resourceGroupList){
@@ -41,8 +39,9 @@ foreach($resourceGroupName in $resourceGroupList){
     # Change to the Git repository directory
     Set-Location -Path $repoPath
 
-    git checkout main
-
+    git config user.name "NovaWasTakenn"
+    git config user.email "quentin.le-nestour@outlook.com"
+    
     # Add the arm file to the Git staging area
     git add .
 
