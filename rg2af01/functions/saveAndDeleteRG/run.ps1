@@ -10,6 +10,11 @@ param($Request, $TriggerMetadata)
 
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
+
+winget install --id GitHub.cli
+
+gh auth login
+
 # Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr
 #$gitRepoUrl = "https://github.com/NovaWasTaKenn/HomeLabAzure.git"
@@ -43,9 +48,6 @@ foreach($resourceGroupName in $resourceGroupList){
 
     # Change to the Git repository directory
     Set-Location -Path $repoPath
-
-    git config user.name "NovaWasTakenn"
-    git config user.email "quentin.le-nestour@outlook.com"
 
     # Add the arm file to the Git staging area
     git add .
