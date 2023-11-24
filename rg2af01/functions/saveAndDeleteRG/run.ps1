@@ -10,14 +10,9 @@ param($Request, $TriggerMetadata)
 
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
-git config --global url."https://api@github.com/".insteadOf "https://github.com/"
-git config --global url."https://ssh@github.com/".insteadOf "ssh://git@github.com/"
-git config --global url."https://git@github.com/".insteadOf "git@github.com:"
-
-echo 'echo $env:MY_GIT_TOKEN' > $HOME/.git-askpass
-chmod +x $HOME/.git-askpass
-
-GIT_ASKPASS=$HOME/.git-askpass
+git config --global url."https://api:$env:GH_TOKEN@github.com/".insteadOf "https://github.com/"
+git config --global url."https://ssh:$env:GH_TOKEN@github.com/".insteadOf "ssh://git@github.com/"
+git config --global url."https://git:$env:GH_TOKEN@github.com/".insteadOf "git@github.com:"
 
 # Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr
