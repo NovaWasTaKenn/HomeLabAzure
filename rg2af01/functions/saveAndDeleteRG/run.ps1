@@ -10,11 +10,11 @@ param($Request, $TriggerMetadata)
 
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
-git config user.email "quentin.le-nestour@outlook.com"
-git config user.name "NovaWasTakenn"
-git config url."https://api:$env:GH_TOKEN@github.com/".insteadOf "https://github.com/"
-git config url."https://ssh:$env:GH_TOKEN@github.com/".insteadOf "ssh://git@github.com/"
-git config url."https://git:$env:GH_TOKEN@github.com/".insteadOf "git@github.com:"
+git config --global user.email "quentin.le-nestour@outlook.com"
+git config --global user.name "NovaWasTakenn"
+git config --global url."https://api:$env:GH_TOKEN@github.com/".insteadOf "https://github.com/"
+git config --global url."https://ssh:$env:GH_TOKEN@github.com/".insteadOf "ssh://git@github.com/"
+git config --global url."https://git:$env:GH_TOKEN@github.com/".insteadOf "git@github.com:"
 
 # Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr
