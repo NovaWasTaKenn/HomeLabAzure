@@ -10,10 +10,14 @@ param($Request, $TriggerMetadata)
 
 Write-Information "RG list $($Request.Body.ResourceGroupListStr)"
 
+git config --global url."https://api@github.com/".insteadOf "https://github.com/"
+git config --global url."https://ssh@github.com/".insteadOf "ssh://git@github.com/"
+git config --global url."https://git@github.com/".insteadOf "git@github.com:"
 
-winget install --id GitHub.cli
+echo 'echo $env:MY_GIT_TOKEN' > $HOME/.git-askpass
+chmod +x $HOME/.git-askpass
 
-gh auth login
+GIT_ASKPASS=$HOME/.git-askpass
 
 # Define the resource group and Bicep file paths 
 $resourceGroupList = $Request.Body.ResourceGroupListStr
@@ -31,7 +35,10 @@ foreach($resourceGroupName in $resourceGroupList){
     $repoPath = "D:\home\site\wwwroot\saveAndDeleteRG\repo"
 
     if(Test-Path $repoPath){
-        Remove-Item $repoPath -Recurse
+
+        Remove-Item -LiteralPath $repoPath -Force -Recurse
+        Remove-Item -LiteralPath $repoPath -Force -Recurse
+
     }
 
 
