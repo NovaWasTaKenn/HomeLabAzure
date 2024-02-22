@@ -30,6 +30,7 @@ $Credential = New-Object -TypeName System.Management.Automation.PSCredential -Ar
 Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
 Get-AzContext
 
+
 foreach($resourceGroupName in $resourceGroupList){
 
     $armFilePath = "D:\home\site\wwwroot\saveAndDeleteRG\$($resourceGroupName).json"
@@ -58,9 +59,11 @@ foreach($resourceGroupName in $resourceGroupList){
 
     # Move the Bicep file to the local repository
     Move-Item $armFilePath -Destination $repoPath
-
+s
     # Change to the Git repository directory
     Set-Location -Path $repoPath
+
+    git -c credential.helper="" config credential.helper
 
     # Add the arm file to the Git staging area
     git add .
