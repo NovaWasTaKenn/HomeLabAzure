@@ -23,29 +23,38 @@ $resourceGroupList = $Request.Body.ResourceGroupListStr
 $gitRepoUrl = $Request.Body.GitRepoUrl
 
 # Authenticate using Managed Identity (Assuming Managed Identity is enabled for the Function App)
-Connect-AzAccount -Identity
-
+$SecurePassword = ConvertTo-SecureString -String "SiG8Q~o-YA5X.MW4hBpBbGOAQsfmgHLslEi6VbX2" -AsPlainText -Force
+$TenantId = '422ebf9d-65c2-4e22-84b8-6fe15a8b7444'
+$ApplicationId = '09ddf5c5-57f5-4c82-86bb-13faf56cd3c6'
+$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $ApplicationId, $SecurePassword
+Connect-AzAccount -ServicePrincipal -TenantId $TenantId -Credential $Credential
+Get-AzContext
 
 foreach($resourceGroupName in $resourceGroupList){
 
     $armFilePath = "D:\home\site\wwwroot\saveAndDeleteRG\$($resourceGroupName).json"
     $repoPath = "D:\home\site\wwwroot\saveAndDeleteRG\repo"
 
-    if(Test-Path $repoPath){
-
-        Remove-Item -LiteralPath $repoPath -Force -Recurse
-        Remove-Item -LiteralPath $repoPath -Force -Recurse
-
-    }
-
-
-    #$bicepFilePath = ".\backup\$($resourceGroupName).json"
+    Write-Host "in foreach"
 
     # Get the resource group
     Export-AzResourceGroup -ResourceGroupName $resourceGroupName -Path $armFilePath
 
-    # Clone the Git repository
-    git clone -b main --single-branch $gitRepoUrl $repoPath
+    if(Test-Path $repoPath){
+
+        cd $repoPath
+        git init
+        git remote add origin $gitRepoUrl
+        git pull
+        git checkout main -f
+        git branch --set-upstream-to origin/main
+
+    }
+    else{
+        git clone -b main --single-branch $gitRepoUrl $repoPath
+    }
+
+    #$bicepFilePath = ".\backup\$($resourceGroupName).json"
 
     # Move the Bicep file to the local repository
     Move-Item $armFilePath -Destination $repoPath
