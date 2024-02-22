@@ -39,7 +39,7 @@ foreach($resourceGroupName in $resourceGroupList){
     Write-Host "in foreach"
 
     # Get the resource group
-    Export-AzResourceGroup -ResourceGroupName $resourceGroupName -Path $armFilePath
+    Export-AzResourceGroup -ResourceGroupName $resourceGroupName -Path $armFilePath -Force
 
     if(Test-Path $repoPath){
 
