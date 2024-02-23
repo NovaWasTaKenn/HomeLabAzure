@@ -57,9 +57,13 @@ foreach($resourceGroupName in $resourceGroupList){
 
     #$bicepFilePath = ".\backup\$($resourceGroupName).json"
 
+    if(Test-Path $repoPath+"$($resourceGroupName).json"){
+        Remove-Item $repoPath+"$($resourceGroupName).json"
+    }
+    
     # Move the Bicep file to the local repository
-    Move-Item $armFilePath -Destination $repoPath
-s
+    Move-Item $armFilePath -Destination $repoPath 
+
     # Change to the Git repository directory
     Set-Location -Path $repoPath
 
